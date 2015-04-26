@@ -4,6 +4,9 @@ import com.google.android.gms.maps.*;
 import com.google.android.gms.maps.model.*;
 import android.app.Activity;
 import android.os.Bundle;
+import android.view.View;
+import android.webkit.WebView;
+import android.widget.Toast;
 
 public class MapActivity extends Activity implements OnMapReadyCallback {
 
@@ -13,7 +16,7 @@ public class MapActivity extends Activity implements OnMapReadyCallback {
         setContentView(R.layout.activity_map);
         MapFragment mapFragment = (MapFragment) getFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
-        (new FriendTrackerAPI()).AddUser(LogInActivity.account.user_id, "LALKA", 12.1231, 23.43434);
+
     }
 
     @Override
@@ -27,5 +30,13 @@ public class MapActivity extends Activity implements OnMapReadyCallback {
                 .title("Sydney")
                 .snippet("The most populous city in Australia.")
                 .position(sydney));
+    }
+
+    public void showMe(View view) {
+        Toast.makeText(this, "ГОВНОЖОПА", Toast.LENGTH_LONG);
+        //FriendTrackerAPI frapi = new FriendTrackerAPI();
+        //frapi.AddUser(0L, null, 0F, 0F);
+        ((WebView) findViewById(R.id.secretwv)).loadUrl("http://friendtracker.esy.es/add_new_user.php?VKID="+LogInActivity.account.user_id+"&Name=test&PointX=1234&PointY=431");
+        //((WebView) findViewById(R.id.secretwv)).destroy();
     }
 }
