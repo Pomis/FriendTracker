@@ -3,8 +3,13 @@ package com.tracker.romanismagilov.friendtracker;
 import com.google.android.gms.maps.*;
 import com.google.android.gms.maps.model.*;
 import android.app.Activity;
+import android.content.Context;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.webkit.WebView;
@@ -52,8 +57,9 @@ public class MapActivity extends Activity implements OnMapReadyCallback {
         //((WebView) findViewById(R.id.secretwv)).loadUrl("http://friendtracker.esy.es/add_new_user.php?VKID="+LogInActivity.account.user_id+"&Name=test&PointX=1234&PointY=431");
         //((WebView) findViewById(R.id.secretwv)).destroy();
         new RequestTask().execute("http://friendtracker.esy.es/add_new_user.php?VKID=555666777&Name=test&PointX=1234&PointY=431");//здесь надыбал
-
+        new RequestTask().execute("http://friendtracker.esy.es/read_users.php");
     }
+
 
     /// THE SHITTA FUCKAAH
     class RequestTask extends AsyncTask<String, String, String>{
@@ -63,6 +69,9 @@ public class MapActivity extends Activity implements OnMapReadyCallback {
             HttpClient httpclient = new DefaultHttpClient();
             HttpResponse response;
             String responseString = null;
+
+
+
             try {
                 response = httpclient.execute(new HttpGet(uri[0]));
                 StatusLine statusLine = response.getStatusLine();
@@ -86,6 +95,7 @@ public class MapActivity extends Activity implements OnMapReadyCallback {
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
             Log.d("435678", "Response: " + result);
+            
         }
     }
 }
